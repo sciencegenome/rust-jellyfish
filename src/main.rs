@@ -5,6 +5,7 @@ use std::fs::File;
 use std::io::{Write, BufReader, BufRead};
 use std::collections::HashSet;
 #[allow(dead_code)]
+
 /*
  *Author Gaurav Sablok
  *Universitat Potsdam
@@ -13,6 +14,7 @@ use std::collections::HashSet;
  * jellyfish counter for the illumina reads for the miseq, nextseq.
  * it outputs the unique kmers as the all profiles kmers and the
  * respective count for making the histograms for the profiled jellyfish counts.
+ *
  * */
 
 fn main() {
@@ -77,20 +79,26 @@ fn kmer_fastq(path: String, kmer:usize) {
          mutunique.push(appendline)
        }
 
-       // opening a new struct for the count
+       // opening a new struct for the count and the count is implemented with in the struct.
        #[derive(Debug)]
        struct CountIllumina {
         kmer: String,
         count:usize,
        }
-        let unique_count = Vec::new();
+        let mut unique_count = Vec::new();
         for i in mutunique.iter() {
-        let count_add = sequence_iter.iter().count(i).collect();
+        let count_add = sequence_iter.iter().filter(|&x| *x == i).count();
         unique_count.push(CountIllumina{
         kmer: i.to_string(),
         count: count_add,
         })
       }
+      let mut unique_file = File::create("histogram-count.txt");
+      for i in unique_count.iter(){
+        let id = i.kmer.to_string();
+        let kmer = i.count.to_string();
+      write!(unique_file, "{}\t{}",id,kmer)}
+
        // a vec struct holding the other count implementation.
        #[derive(Debug)]
        struct VecStore {
