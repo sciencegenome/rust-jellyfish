@@ -1,5 +1,5 @@
 mod args;
-use args::KmeroriginArgs;
+use args::JellyfishArgs;
 use clap::Parser;
 use std::fs::File;
 use std::io::{Write, BufReader, BufRead};
@@ -19,7 +19,7 @@ use std::collections::HashSet;
 
 fn main() {
 
-    let args = KmeroriginArgs::parse();
+    let args = JellyfishArgs::parse();
     kmer_fastq(args.fastqfile_arg, args.kmer_arg);
 }
 
@@ -43,7 +43,7 @@ fn kmer_fastq(path: String, kmer:usize) {
         seq: String,
         }
 
-        let illumina = Vec::new();
+        let mut illumina = Vec::new();
         for i in 0..header.len(){
             illumina.push(Illuminaseq{
             id:header[i].to_string(),
@@ -93,12 +93,10 @@ fn kmer_fastq(path: String, kmer:usize) {
         count: count_add,
         })
       }
-      let mut unique_file = File::create("histogram-count.txt");
+      let mut unique_file = File::create("histogram-count.txt").expect("file not present");
       for i in unique_count.iter(){
-        let id = i.kmer.to_string();
-        let kmer = i.count.to_string();
-      write!(unique_file, "{}\t{}",id,kmer)}
-
+           write!(unique_file, "{}\t{}",i.kmer,i.count);
+      }
        // a vec struct holding the other count implementation.
        #[derive(Debug)]
        struct VecStore {
