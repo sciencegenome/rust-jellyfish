@@ -32,10 +32,10 @@ fn kmer_jellyfish(path: &str, kmer:usize) {
                        .expect("line not present");
             let mut header: Vec<&str> = vec![];
             let mut sequence:Vec<&str> = vec![];
-            if line.starts_with(">") {
+            if line.starts_with("@") {
                 header.push(&line)
             }
-            if !line.starts_with("@") {
+            if line.starts_with("A") || line.starts_with("T") || line.starts_with("G") || line.starts_with("C") {
                 sequence.push(&line)
             }  
             let mut sequence_iter:Vec<&str> = vec![];
