@@ -4,7 +4,7 @@
 - outputs both the unique counts, all counts. 
 - directly plots the histograms from the counts using the rust plotters.
 - it will produce allkmers, uniquekmers, countkmers
-
+- available as crate [rust-jellyfish](https://crates.io/crates/kmerjellyfish)
 ```
 Usage: kmerjellyfish <KMER_ARG> <FASTQFILE_ARG>
 
