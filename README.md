@@ -5,6 +5,8 @@
 - directly plots the histograms from the counts using the rust plotters.
 - it will produce allkmers, uniquekmers, countkmers
 - available as crate [rust-jellyfish](https://crates.io/crates/kmerjellyfish)
+- please see the last commit message and if it says compiled binary then it is completed or else still in development version.
+  
 ```
 Usage: kmerjellyfish <KMER_ARG> <FASTQFILE_ARG>
 
